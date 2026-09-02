@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SIMPUS-Mini | Beranda</title>
+
+    <!-- Menghubungkan HTML dengan CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="container header-content">
+
+            <div class="logo">
+                <h1>SIMPUS-Mini</h1>
+                <p>Sistem Perpustakaan Mini</p>
+            </div>
+
+            <nav>
+                <ul class="nav-list">
+                    <li>
+                        <a href="index.html" class="active">Beranda</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Daftar Buku</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Tambah Buku</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Daftar Anggota</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- BAGIAN SELAMAT DATANG -->
+        <section class="hero">
+
+            <div class="container">
+
+                <h2>Selamat Datang di SIMPUS-Mini 👋</h2>
+
+                <p>
+                    Aplikasi sederhana untuk mengelola
+                    data buku dan anggota perpustakaan.
+                </p>
+
+                <button id="tombolTambah" class="button">
+                    + Tambah Buku
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- BAGIAN RINGKASAN -->
+        <section class="summary">
+
+            <div class="container">
+
+                <div class="section-title">
+                    <h2>Ringkasan Perpustakaan</h2>
+
+                    <p>
+                        Informasi perpustakaan saat ini
+                    </p>
+                </div>
+
+
+                <!-- CARD -->
+                <div class="card-container">
+
+                    <!-- TOTAL BUKU -->
+                    <article class="card">
+
+                        <div class="card-icon">
+                            📚
+                        </div>
+
+                        <div>
+                            <h3>Total Buku</h3>
+
+                            <p class="number" id="totalBuku">
+                                12
+                            </p>
+
+                            <span>Buku tersedia</span>
+                        </div>
+
+                    </article>
+
+
+                    <!-- TOTAL ANGGOTA -->
+                    <article class="card">
+
+                        <div class="card-icon">
+                            👥
+                        </div>
+
+                        <div>
+                            <h3>Total Anggota</h3>
+
+                            <p class="number" id="totalAnggota">
+                                8
+                            </p>
+
+                            <span>Anggota terdaftar</span>
+                        </div>
+
+                    </article>
+
+
+                    <!-- BUKU DIPINJAM -->
+                    <article class="card">
+
+                        <div class="card-icon">
+                            📖
+                        </div>
+
+                        <div>
+                            <h3>Sedang Dipinjam</h3>
+
+                            <p class="number" id="bukuDipinjam">
+                                3
+                            </p>
+
+                            <span>Buku dipinjam</span>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            &copy; 2026 SIMPUS-Mini
+            &mdash;
+            Jobsheet 1
+        </p>
+
+    </footer>
+
+
+    <!-- Menghubungkan HTML dengan JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
