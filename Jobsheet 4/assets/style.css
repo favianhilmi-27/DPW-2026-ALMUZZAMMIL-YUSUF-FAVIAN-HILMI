@@ -1,4 +1,3 @@
-/* ===== Reset & Base ===== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,7 +20,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ===== Header & Navbar (Flexbox) ===== */
 header {
     background-color: #10866d;
     color: #fff;
@@ -59,7 +57,7 @@ header nav a.aktif {
     background-color: rgba(255, 255, 255, 0.28);
 }
 
-/* ===== Main Layout ===== */
+/* Main Layout */
 main {
     max-width: 1000px;
     margin: 2rem auto;
@@ -79,8 +77,6 @@ section h2 {
     color: #10866d;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
-/* Latihan 2 (10.4): base diubah jadi 4 kolom untuk menampung kartu ke-4 "Buku Terlambat" */
 main section:nth-of-type(2) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -144,7 +140,6 @@ td button {
     font-size: 0.85rem;
 }
 
-/* Berbasis posisi (bukan makna) — hanya mengenai tombol pertama & terakhir */
 td button:first-of-type {
     background-color: #f0ad4e;
     color: #fff;
@@ -155,14 +150,11 @@ td button:last-of-type {
     color: #fff;
 }
 
-/* Latihan 3 (10.4): tombol Detail ada di tengah, tidak match first/last-of-type,
-   jadi WAJIB diberi class sendiri supaya tidak polos/default */
 .btn-detail {
     background-color: #17a2b8;
     color: #fff;
 }
 
-/* ===== Form ===== */
 form p {
     margin-bottom: 1rem;
 }
@@ -198,7 +190,6 @@ form button[type="submit"]:hover {
     background-color: #10866d;
 }
 
-/* ===== Footer ===== */
 footer {
     text-align: center;
     padding: 1.25rem;
@@ -206,14 +197,10 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ===== Wrapper Scroll Horizontal ===== */
-/* Latihan 3 (6.4): pola ini generik, bisa dipakai untuk elemen lebar apa pun,
-   bukan cuma <table> — misalnya blok <pre><code> yang panjang */
 .table-responsive {
     overflow-x: auto;
 }
 
-/* ===== Hamburger Menu (checkbox hack) ===== */
 .nav-toggle {
     display: none;
 }
@@ -225,23 +212,18 @@ footer {
     cursor: pointer;
 }
 
-/* ===== Responsive Breakpoints ===== */
-
-/* Latihan 1 (6.4): breakpoint tambahan untuk layar sangat lebar */
 @media (min-width: 1400px) {
     main {
         max-width: 1200px;
     }
 }
 
-/* Latihan 2 (6.4): breakpoint tablet digeser dari 768px -> 900px */
 @media (max-width: 900px) {
     main section:nth-of-type(2) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
     header {
         position: relative;
