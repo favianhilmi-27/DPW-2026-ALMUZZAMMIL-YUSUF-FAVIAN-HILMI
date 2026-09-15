@@ -1,8 +1,3 @@
-/* =====================================================
-   SIMPUS-Mini — style.css
-   Palet & detail visual: Jobsheet 4 (hasil modifikasi sendiri)
-   Class pendukung fitur JS: search-box, error (dari Jobsheet 5)
-   ===================================================== */
 
 * {
     box-sizing: border-box;
@@ -97,10 +92,19 @@ main section:nth-of-type(2) h2 {
 }
 
 main section:nth-of-type(2) article {
-    background-color: #eef4fa;
-    border-radius: 8px;
+    background-color: var(--warna-kartu, #f5f6f8);
+    border-radius: 12px;
     padding: 1.25rem;
     text-align: center;
+    border: 1px solid var(--warna-batas, #e2e6ea);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+main section:nth-of-type(2) article:hover {
+    background-color: var(--warna-kartu-hover, #eaf6f3);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.15);
+    border-color: var(--warna-batas-hover, #10866d);
 }
 
 main section:nth-of-type(2) article h3 {
