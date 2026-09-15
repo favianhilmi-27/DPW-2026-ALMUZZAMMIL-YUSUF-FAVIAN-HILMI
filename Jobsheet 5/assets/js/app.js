@@ -9,8 +9,28 @@ function initNavToggle() {
     });
 }
 
+// ===== Counter "Menampilkan X dari Y" (Latihan 8.4 no.4) =====
+// Dipanggil ulang oleh initTableFilter (setelah filter) dan initHapusConfirm
+// (setelah baris dihapus), supaya angkanya selalu sinkron dengan tabel.
+function updateCounter(table) {
+    const counter = document.getElementById("filter-counter");
+    if (!counter || !table) return;
+
+    const rows = table.querySelectorAll("tbody tr");
+    const total = rows.length;
+    let tampil = 0;
+    rows.forEach(function (row) {
+        if (row.style.display !== "none") tampil++;
+    });
+
+    const label = counter.dataset.label || "data";
+    counter.textContent = "Menampilkan " + tampil + " dari " + total + " " + label;
+}
+
 // ===== Konfirmasi hapus (front-end only, belum ke server) =====
 function initHapusConfirm() {
+    const table = document.querySelector(".table-responsive table");
+
     document.querySelectorAll(".btn-hapus").forEach(function (btn) {
         btn.addEventListener("click", function () {
             const row = btn.closest("tr");
@@ -18,24 +38,34 @@ function initHapusConfirm() {
             const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
             if (yakin && row) {
                 row.remove();
+                updateCounter(table);
             }
         });
     });
 }
 
-// ===== Filter/pencarian tabel real-time =====
+// ===== Filter/pencarian tabel real-time (Latihan 8.4 no.3) =====
+// Pencarian dibatasi ke SATU kolom saja, bukan seluruh teks baris.
+// Kolom target ditentukan lewat atribut data-search-col di elemen
+// #search-input (0 = kolom pertama, 1 = kolom kedua, dst), karena posisi
+// kolom yang relevan beda-beda tiap halaman (Judul di buku ada di kolom 0,
+// Nama di anggota ada di kolom 1).
 function initTableFilter() {
     const input = document.getElementById("search-input");
     const table = document.querySelector(".table-responsive table");
     if (!input || !table) return;
 
+    const kolom = parseInt(input.dataset.searchCol || "0", 10);
+
     input.addEventListener("keyup", function () {
         const keyword = input.value.toLowerCase();
         const rows = table.querySelectorAll("tbody tr");
         rows.forEach(function (row) {
-            const teks = row.textContent.toLowerCase();
-            row.style.display = teks.includes(keyword) ? "" : "none";
+            const cells = row.querySelectorAll("td");
+            const target = cells[kolom] ? cells[kolom].textContent.toLowerCase() : "";
+            row.style.display = target.includes(keyword) ? "" : "none";
         });
+        updateCounter(table);
     });
 }
 
@@ -55,6 +85,43 @@ function hapusError(input) {
     }
 }
 
+// Latihan 8.4 no.5: daftar aturan validasi dalam bentuk array, dibaca
+// lewat forEach, jadi menambah validasi field baru (no.1: ISBN) tidak
+// perlu blok if terpisah lagi -- cukup tambah satu objek aturan di sini.
+const aturanValidasi = [
+    {
+        selector: "[name='judul'], [name='nama']",
+        wajib: true,
+        pesanWajib: "Field ini wajib diisi."
+    },
+    {
+        selector: "[name='pengarang']",
+        wajib: true,
+        pesanWajib: "Pengarang wajib diisi."
+    },
+    {
+        selector: "[name='tahun']",
+        tipe: "angka",
+        min: 1900,
+        max: 2026,
+        pesanRange: "Tahun harus di antara 1900-2026."
+    },
+    {
+        selector: "[name='stok']",
+        tipe: "angka",
+        min: 0,
+        pesanRange: "Stok tidak boleh negatif."
+    },
+    {
+        // Latihan 8.4 no.1: ISBN tidak wajib diisi, tapi kalau diisi
+        // hanya boleh berisi angka dan tanda hubung (-).
+        selector: "[name='isbn']",
+        wajib: false,
+        pola: /^[0-9-]+$/,
+        pesanPola: "ISBN hanya boleh berisi angka dan tanda hubung (-)."
+    }
+];
+
 function initValidasiForm() {
     const form = document.getElementById("form-tambah");
     if (!form) return;
@@ -62,43 +129,37 @@ function initValidasiForm() {
     form.addEventListener("submit", function (e) {
         let valid = true;
 
-        const judul = form.querySelector("[name='judul'], [name='nama']");
-        if (judul && judul.value.trim() === "") {
-            tampilkanError(judul, "Field ini wajib diisi.");
-            valid = false;
-        } else if (judul) {
-            hapusError(judul);
-        }
+        aturanValidasi.forEach(function (aturan) {
+            const field = form.querySelector(aturan.selector);
+            if (!field) return; // field ini tidak ada di form halaman ini, lewati
 
-        const pengarang = form.querySelector("[name='pengarang']");
-        if (pengarang && pengarang.value.trim() === "") {
-            tampilkanError(pengarang, "Pengarang wajib diisi.");
-            valid = false;
-        } else if (pengarang) {
-            hapusError(pengarang);
-        }
+            const nilai = field.value.trim();
 
-        const tahun = form.querySelector("[name='tahun']");
-        if (tahun) {
-            const nilai = parseInt(tahun.value, 10);
-            if (isNaN(nilai) || nilai < 1900 || nilai > 2026) {
-                tampilkanError(tahun, "Tahun harus di antara 1900-2026.");
+            if (aturan.wajib && nilai === "") {
+                tampilkanError(field, aturan.pesanWajib);
                 valid = false;
-            } else {
-                hapusError(tahun);
+                return;
             }
-        }
 
-        const stok = form.querySelector("[name='stok']");
-        if (stok) {
-            const nilai = parseInt(stok.value, 10);
-            if (isNaN(nilai) || nilai < 0) {
-                tampilkanError(stok, "Stok tidak boleh negatif.");
-                valid = false;
-            } else {
-                hapusError(stok);
+            if (aturan.tipe === "angka" && nilai !== "") {
+                const angka = parseInt(nilai, 10);
+                const dibawahMin = aturan.min !== undefined && angka < aturan.min;
+                const diatasMax = aturan.max !== undefined && angka > aturan.max;
+                if (isNaN(angka) || dibawahMin || diatasMax) {
+                    tampilkanError(field, aturan.pesanRange);
+                    valid = false;
+                    return;
+                }
             }
-        }
+
+            if (aturan.pola && nilai !== "" && !aturan.pola.test(nilai)) {
+                tampilkanError(field, aturan.pesanPola);
+                valid = false;
+                return;
+            }
+
+            hapusError(field);
+        });
 
         if (!valid) {
             e.preventDefault();
@@ -111,4 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
     initHapusConfirm();
     initTableFilter();
     initValidasiForm();
+
+    // Tampilkan counter awal ("Menampilkan 5 dari 5 buku") begitu halaman dimuat
+    const table = document.querySelector(".table-responsive table");
+    if (table) updateCounter(table);
 });
