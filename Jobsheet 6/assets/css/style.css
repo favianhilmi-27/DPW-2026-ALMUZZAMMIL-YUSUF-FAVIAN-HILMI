@@ -8,7 +8,7 @@
 body {
     font-family: "Poppins", Arial, sans-serif;
     color: #2b2b2b;
-    background-color: #f5f6f8;
+    background: linear-gradient(135deg,#f5f6f8, #eaf6f3);
     line-height: 1.5;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 /* ===== Header & Navbar ===== */
 header {
-    background-color: #10866d;
+    background: linear-gradient(135deg,#0c6a56, #10866d);
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -92,7 +92,7 @@ main section:nth-of-type(2) h2 {
 }
 
 main section:nth-of-type(2) article {
-    background-color: var(--warna-kartu, #f5f6f8);
+    background: linear-gradient(135deg, var(--warna-kartu, #f5f6f8), var(--warna-kartu, #eaf6f3));
     border-radius: 12px;
     padding: 1.25rem;
     text-align: center;
@@ -101,7 +101,7 @@ main section:nth-of-type(2) article {
 }
 
 main section:nth-of-type(2) article:hover {
-    background-color: var(--warna-kartu-hover, #eaf6f3);
+    background: linear-gradient(135deg, var(--warna-kartu-hover, #eaf6f3), var(--warna-kartu-hover, #eaf6f3));
     transform: translateY(-4px);
     box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.15);
     border-color: var(--warna-batas-hover, #10866d);
@@ -251,6 +251,7 @@ form button[type="submit"]:hover {
 
 /* ===== Footer ===== */
 footer {
+    border-top: 1px solid #e2e6ea;
     text-align: center;
     padding: 1.25rem;
     color: #7a8794;
