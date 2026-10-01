@@ -71,8 +71,3 @@ Lalu buka `http://localhost:8000/index.php` pada peramban webmu. Alternatif lain
 * Memanajemen data menggunakan fungsionalitas `Session` pada aliran data antar-halaman.
 * Melakukan tangkapan lalu memvalidasi input (*server-side validasi*) dari form HTML ke pengolahan PHP menggunakan `proses_tambah.php`.
 * Menerapkan dan memanipulasi *Flash Message* CSS untuk menunjukkan pemberitahuan singkat saat manipulasi data sukses maupun gagal.
-
-## Catatan
-
-* Semua sub-materi telah dipisahkan menjadi modul rapi di direktori `Dokumentasi/` untuk dibaca satu persatu.
-* Silakan baca file utama referensi untuk petunjuk selengkapnya dari repositori ini, file tersebut disimpan secara khusus dengan nama README.md.
